@@ -40,7 +40,7 @@ class StdOutListener(StreamListener):
                 return True
 
             if "RT" in tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'):
-            #    print(ENDC+"Retweeted from "+OKGREEN+tweet['user']['name'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace') +ENDC+ "("+OKBLUE+"@" + tweet['user']['screen_name']+ENDC+")"+":\n"+tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'))
+                print(ENDC+"Retweeted from "+OKGREEN+tweet['user']['name'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace') +ENDC+ "("+OKBLUE+"@" + tweet['user']['screen_name']+ENDC+")"+":\n"+tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'))
                 return True
             #print(tweet['text'])
             print(ENDC+"Tw from:"+OKGREEN+tweet['user']['name'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace')+ENDC+"("+OKBLUE+"@"+tweet['user']['screen_name']+ENDC+"), \n"+WARNING+tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'))
@@ -92,8 +92,8 @@ if __name__ == '__main__':
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
     api = tweepy.API(auth)
     stream = Stream(auth, l)
-    #stream.userstream(async=True)
-    stream.filter(async=True,track=['SMAP'])
+    stream.userstream(async=True)
+    #stream.filter(async=True,track=['SMAP'])
     while True:
         s = input()
         args = s.split(" ",1)
