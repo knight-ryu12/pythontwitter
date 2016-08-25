@@ -69,7 +69,7 @@ if __name__ == '__main__':
     f.close()
     icecastserver = ""
     auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    print(fl['access_token'])
+    #print(fl['access_token'])
     if fl['access_token'] != None:
         f = open('twitterkey.json','r')
         ACCESS_TOKEN = fl['access_token']
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     api = tweepy.API(auth)
     stream = Stream(auth, l)
     #stream.userstream(async=True)
-    stream.filter(async=True,track=['SMAP'])
+    stream.filter(async=True,track=['ゴルスタ'])
     while True:
         s = input()
         args = s.split(" ",1)
