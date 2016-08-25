@@ -1,1 +1,2 @@
 # TweeyPython
+Simple Twitter Scrobbler
