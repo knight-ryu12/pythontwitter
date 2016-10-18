@@ -7,6 +7,7 @@ import tweepy
 import json
 import sys
 import requests
+from datetime import datetime
 #from WConio import *
 
 OKBLUE = '\033[94m'
@@ -44,6 +45,12 @@ class StdOutListener(StreamListener):
                 return True
             #print(tweet['text'])
             print(ENDC+"Tw from:"+OKGREEN+tweet['user']['name'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace')+ENDC+"("+OKBLUE+"@"+tweet['user']['screen_name']+ENDC+"), \n"+WARNING+tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'))
+            if "こんばんは" in tweet['text']:
+                if tweet['user']['screen_name'] not in api.me().screen_name:
+                    time = datetime.now()
+                    api.update_status('@'+tweet['user']['screen_name'] +" こんばんはぁー 現在の時刻は " + time.strftime('%Y年%m月%d日、%H時%M分%S秒') + "です！",tweet['id'])
+                    return True
+
             return True
 #        if data.startswith("{"):
 #            print(data)
@@ -92,19 +99,23 @@ if __name__ == '__main__':
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
     api = tweepy.API(auth)
     stream = Stream(auth, l)
-    #stream.userstream(async=True)
-    stream.filter(async=True,track=['ゴルスタ'])
+    stream.userstream(async=True)
+    #stream.filter(async=True)
     while True:
         s = input()
         args = s.split(" ",1)
         if "tweet" in args[0]:
             if args[1] != None:
                 api.update_status(args[1])
+                continue
 
         if "die" in args[0]:
             stream.disconnect()
             print("exitted!")
             sys.exit()
+
+        if "showme" in args[0]:
+            print(api.me().screen_name)
 
         if "icecast_setserver" in args[0]:
             if not "" in args[1]:
