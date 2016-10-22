@@ -46,7 +46,7 @@ class StdOutListener(StreamListener):
             #print(tweet['text'])
             print(ENDC+"Tw from:"+OKGREEN+tweet['user']['name'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace')+ENDC+"("+OKBLUE+"@"+tweet['user']['screen_name']+ENDC+"), \n"+WARNING+tweet['text'].encode("utf-8","ignore").decode("utf-8",'xmlcharrefreplace'))
             if "こんばんは" in tweet['text']:
-                if tweet['user']['screen_name'] not in api.me().screen_name:
+                if tweet['user']['screen_name'] not in myself.screen_name:
                     time = datetime.now()
                     api.update_status('@'+tweet['user']['screen_name'] +" こんばんはぁー 現在の時刻は " + time.strftime('%Y年%m月%d日、%H時%M分%S秒') + "です！",tweet['id'])
                     return True
@@ -98,6 +98,7 @@ if __name__ == '__main__':
 
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
     api = tweepy.API(auth)
+    myself = api.me()
     stream = Stream(auth, l)
     stream.userstream(async=True)
     #stream.filter(async=True)
